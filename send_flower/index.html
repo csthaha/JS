@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>送花</title>
+</head>
+<body>
+    <script>
+        // {}JSON 对象字面量
+        // 作业：富豪 在想送什么花呢？（玫瑰？丁香？... class new）打印出来，小美收到了什么花
+        const cst={
+            name:"陈松涛",
+            hometown:"高安",
+            single:false,
+            room:"1352",
+
+        }
+        // js极具表现力的语言
+        // 对象字面量
+        const fh={
+            // 属性
+            name:"富豪",
+            single:true,
+            hometown:"高安",
+            hobbies:["桌球","下棋","游戏"],
+            yz:75,
+            flowers:["红玫瑰","白玫瑰","丁香花"],
+
+            //送花？  是个动作,方法    target 形式参数(目标)
+            send_flower(target){
+                target.receiverFlower(fh);
+                
+                
+            }
+            
+            
+            
+
+        }
+        const xm={
+            name:"小美",
+            single:true,
+            receiverFlower(sender){
+                console.log("收花");     //  打印
+                // 颜值（属性） 85以上
+                if(sender.yz<85){
+                    console.log("你是个好人");
+                }else{
+                    console.log("万达走一波,收下"+sender.flowers[0]);
+                }
+            },    //再添加一个方法  心情如何
+            listenGoodMood(fn){
+                console.log("心情不好");
+                
+                setTimeout(function(){         //第一个参数是匿名参数，第二个是时间参数。3000毫秒后执行。
+                    fh.yz=88;
+                    
+                    
+                    console.log("心情不错，感觉人生已经到达了高潮！");
+                    
+
+                    fn();
+                },3000);
+
+
+            }
+
+        }
+        const xiaohong={
+            name:"小红",
+            hometown:"高安",
+            sex:"女",
+            receiverFlower(sender){        //接口
+                //代理对象，实现复杂需求，   监听小美的心情，3秒钟之后心情好了，送
+                    xm.listenGoodMood(function(){
+                        // sender.send_flower(xm);
+                        xm.receiverFlower(sender);
+                        
+                        
+                        
+                        
+                    });
+        
+                // xm.receiverFlower(sender);
+
+                // if(sender.name=="富豪"){
+                //     console.log("富豪，晚上一起吃饭！");
+                // }else{
+                //     console.log("玩去");
+                // }
+
+            }
+
+        }
+    </script>
+</body>
+</html>
