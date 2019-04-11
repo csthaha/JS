@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 12px;
+}
+body{
+    font-size: 12px
+}
+.container{
+    width: 940px;
+    margin: 0 auto;
+}
+.item{
+    margin-top: 40px;
+    font-size: 1.08rem;
+    border:1px solid #edeeef;
+    max-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 2rem;
+}
+.item .number{
+    color: #b2bac2;
+    font-weight: 700;
+    margin-left: 0.2rem;
+}
+.number.active{
+    color: rgb(6, 201, 6);
+}

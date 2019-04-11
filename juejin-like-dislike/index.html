@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>like-dislike</title>
+
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="item">
+            <img class="icon" src="https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg" alt="">
+            <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/zan-active.930baa2.svg" alt=""> -->
+            <span class="number">37</span>
+        </div>
+
+        <div class="item">
+            <img class="icon" src="https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg" alt="">
+            <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/zan-active.930baa2.svg" alt=""> -->
+            <span class="number">999</span>
+        </div>
+
+        <div class="item">
+            <img class="icon" src="https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg" alt="">
+            <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/zan-active.930baa2.svg" alt=""> -->
+            <span class="number">250</span>
+        </div>
+
+        <div class="item">
+            <img class="icon" src="https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg" alt="">
+            <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/zan-active.930baa2.svg" alt=""> -->
+            <span class="number">665</span>
+        </div>
+    </div>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+
+
+        const dislike = "https://b-gold-cdn.xitu.io/v3/static/img/zan.e9d7698.svg";
+        const like = "https://b-gold-cdn.xitu.io/v3/static/img/zan-active.930baa2.svg";
+
+        for (let i = 0; i < items.length; i++) {
+            //默认时候是未点赞的时候
+            let flag = false;
+            const icon = items[i].querySelector('.icon');
+            const number = items[i].querySelector('.number');
+            items[i].addEventListener('click', () => {
+                let n = number.innerHTML;
+                n = parseInt(n);
+                if (flag) {
+                    n = n - 1;
+                    icon.src = dislike;
+                    number.classList.remove('active');
+                } else {
+                    n = n + 1;
+                    icon.src = like;
+                    number.classList.add('active');
+                }
+                // number.classList.toggle('active'); 效果作用和 add remove 一样
+                number.innerHTML = n;
+                console.log(n);
+                flag = !flag;
+            })
+        }
+
+    </script>
+</body>
+
+</html>
