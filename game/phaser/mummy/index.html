@@ -25,9 +25,9 @@
 
             //多大 什么游戏用什么方法    #game 渲染的目标
             var game = new Phaser.Game(width, height, Phaser.AUTO, '#game', {
-                preload: preload,
-                create: create,
-                update:update
+                preload: preload,  //预加载资源
+                create: create, //创建场景
+                update:update  //动作
             })
             // Phaser 命名空间
             function preload() {
@@ -48,7 +48,7 @@
                 anim = mummy.animations.add('walk');
                 anim.onStart.add(animationStarted, this);
                 anim.onLoop.add(animationLooped, this);
-                anim.onComplete.add(animationStoped, this); 
+                // anim.onComplete.add(animationStoped, this); 
                 // walk游戏中内置
                 anim.play(10, true);
             }
@@ -57,17 +57,17 @@
             }
             function animationLooped(sprite, animation) {
                 if (animation.loopCount === 1) {
-                    loopText = game.add.text(32, 64, 'Animation looped', { fill: 'white' })
+                    loopText = game.add.text(32, 64, 'Animation looped', { fill: 'green' })
                 } else {
-                    loopText = game.add.text(32, 64, 'Animation looped x2', { fill: 'white' });
+                    loopText = game.add.text(32, 96, 'Animation looped x2', { fill: 'red' });
                     animation.loop = false;
                 }
             }
-            function animationStoped(sprite, animation) {
-                if(anim.isPlaying){
+            // function animationStoped(sprite, animation) {
+            //     if(anim.isPlaying){
                    
-                }
-            }
+            //     }
+            // }
 
             function update(){
                 if(anim.isPlaying){
