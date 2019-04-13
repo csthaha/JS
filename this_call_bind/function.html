@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //---------1-------------
+
+        // function father(money) {
+        //     this.money = money;
+        //     this.city = 'gaoan';
+        // }
+        // function child(money, age, sex) {
+        //     this.age = age;
+        //     this.sex = sex;
+        //     console.log(this, '------');
+        //     father.call(this, money, age, sex);
+        //     console.log(this, '++++++');
+        // }
+        // child('1',10,'boy');  //this 指向window  只是调用构造函数，输出 指向window 的this
+
+        // var child1 = new child('一个亿', 10, 'boy'); // new 一个 child 对象 所以指向 child Obj
+        // console.log(child1);
+
+        //-----------2-------------
+
+        var obj = {
+            name: 'chensongtao',
+            age: '21',
+            sex: 'boy',
+            eat: function () {
+                console.log(this);  //this 指向obj 对象
+                console.log('我叫' + this.name + ',性别' + this.sex + ',今年' + this.age + '岁')
+            }
+        }
+        obj.eat();
+        //作为对象的方法调用时，this 指向改对象
+
+        window.day='4-13';
+        console.log(this);
+        function f(){
+            console.log(this.day);
+        }
+        f();
+        //作为普通函数调用时，this 指向全局对象 window
+
+        var myclass = function class1(){
+            this.class1 = 'B班';
+
+        }
+        var Bclass = new myclass();
+        console.log(Bclass.class1);
+        //使用new 构造一个函数，this指向所改 实例对象
+
+    //---------------3--------------------
+    var func = function (a,b,c){
+        console.log([a,b,c]);
+    }
+    func.call(null,1,2,3);  
+    func.apply(this,[4,5,6])
+    //apply 接收两个参数，第一个参数指定了函数内的this对象的指向，第二个参数为一个带下标的集合，这个
+    //集合可以时数组，类数组，apply方法把这个集合中的元素作为参数传入被调用的函数
+    // call 接收的参数不固定，第一个参数跟apply相同 代表函数内的this指向
+
+    var x = {
+        hobby:'zhuoqiu'
+    }
+    var y = {
+        hobby:'chess'
+    }
+    var outName = function (){
+        console.log(this.hobby);
+    }
+    outName(); //当普通函数调用时，this指向window
+    window.hobby = 'game';
+    outName();
+    outName.call(x);
+    outName.apply(y);
+    // call,apply 改变this 的指向
+
+    var A = function(){
+        this.word = 'Hello World'
+    }
+    var B =function(){
+        A.call(this);
+    }
+    B.prototype.getWord = function(){
+        return this.word;
+    }
+    var b = new B();
+    console.log(b.word);
+    //利用call来实现 继承
+    </script>
+</body>
+
+</html>
