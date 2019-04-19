@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>file</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        img {
+            width: 100%;
+
+        }
+
+        .list-group {
+            border: 1px dashed aqua;
+            height: 200px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        input[type="button"] {
+            position: absolute;
+            left: 50%;
+            margin-top: 10px;
+            position: relative;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <ul class="list-group">
+            拖放文件的到这里
+        </ul>
+        <div class="row" id="imgContainer">
+            <!-- <div class="col-md-3"></div> -->
+        </div>
+    </div>
+    <!-- image/png: MIME类型 -->
+    <!-- text/html  MIME类型  -->
+    <!-- <input type="file" accept="image/png,image/jpeg"> -->
+    <form action="" name="upload">
+        <!-- <input type="file" name="fileSelect" accept="image/*" multiple> -->
+        <input type="file" name="fileSelect">
+        <input type="button" value="上传文件" class="btn btn-primary" name="fileSelectBtn">
+    </form>
+    <div>
+        读取文件进度
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" 
+                id="progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+    <!-- multiple ：按住ctrl 可以一起选中 -->
+    <!-- 选中这个所有 -->
+
+    <script>
+        const uploadForm = document.forms['upload']['fileSelect'];
+        //获取name 为 upload 的表单
+        const fileSelectBtn = document.forms['upload']['fileSelectBtn'];
+        const listGroup = document.querySelector('.list-group');
+        function displayFileIndfo(event) {
+            event.preventDefault();//阻止默认打开
+            const files = event.target.files || event.dataTransfer.files;
+            let reader = new FileReader(); //2
+            for (let file of files) {
+                //图片信息
+
+                // const liNode = document.createElement('li');
+                // // liNode.className = ''
+                // liNode.classList.add('list-group-item');
+                // const content = document.createTextNode(`
+                // ${file.name}
+                // ${file.type}
+                // ${(file.size / 1024 / 1024).toFixed(2)}MB
+                // ${file.lastModifiedDate.toLocaleDateString()}
+
+                // `)
+                // liNode.appendChild(content);
+                // listGroup.appendChild(liNode);
+
+                // //图片
+                // const img = document.createElement('img');
+                // //暂时的在内存里面的URL （可以在新窗口打开）， 
+                // // 生命周期 和 创建他的窗口的document 绑定，（当窗口关闭时，URL 就失效，图片打不开）
+                // const url = window.URL.createObjectURL(file);
+                // img.src = url;
+                // const colDiv = document.createElement('div');
+                // colDiv.classList.add('col-md-3');
+                // colDiv.appendChild(img);
+                // document.querySelector('.row').appendChild(colDiv);
+
+
+                reader.readAsDataURL(file);
+                reader.onprogress = function(event){
+                    const progress = document.getElementById('progress');
+                    const percent = Math.round(event.loaded / event.total * 100);
+                    progress.style.width = `${percent}%`
+                }
+                reader.onload = function (event) {
+                    const colDiv = document.createElement('div');
+                    colDiv.classList.add('col-md-3');
+                    const img = document.createElement('img');
+                    //
+                    img.src = event.target.result;
+                    //
+                    colDiv.appendChild(img);
+                    document.querySelector('.row')
+                        .appendChild(colDiv);
+
+                }
+            }
+        }
+        uploadForm.addEventListener('change', displayFileIndfo);
+        fileSelectBtn.addEventListener('click', () => {
+            uploadForm.click();
+        })
+        listGroup.addEventListener('dragover', event => event.preventDefault())
+        listGroup.addEventListener('drop', displayFileIndfo);
+    </script>
+</body>
+
+</html>
