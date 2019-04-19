@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+
+    <style>
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: #bbb;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script>
+        const box = document.getElementById('box');
+        let cur = {
+            x: 0,
+            y: 0,
+        }
+        let drag = false;
+        let dx, dy;
+        // box.addEventListener('mousedown', function (event) {
+        //     console.log('mousedown');
+        //     drag = true;
+        //     cur.x = event.clientX;
+        //     cur.y = event.clientY;
+        //     dx = box.offsetLeft;
+        //     dy = box.offsetTop;
+        // })
+        // box.addEventListener('mousemove', function (event) {
+        //     console.log('mousemove');
+        //     if (!drag) {
+        //         return false;
+        //     }
+        //     // event.clientX;
+        //     // event.clientY;
+        //     box.style.left = `${event.clientX - cur.x + dx}px`;
+        //     box.style.top = `${event.clientY - cur.y + dy}px`;
+
+        // })
+        // box.addEventListener('mouseup', function () {
+        //     drag = false;
+        //     console.log('mouseup')
+        // })
+        // box.addEventListener('mouseleave', function () {
+        //     drag = false;
+        //     console.log('mouseleave');
+        // })
+        box.addEventListener('touchstart', function (event) {
+            console.log('touchstart');
+            if(event.touches){  //手指
+                console.log(event.touches);
+                event = event.touches[0];
+            }
+            drag = true;
+            cur.x = event.clientX;
+            cur.y = event.clientY;
+            dx = box.offsetLeft;
+            dy = box.offsetTop;
+
+        });
+        box.addEventListener('touchmove', function (event) {
+            console.log('touchmove');
+            if(event.touches){
+                event = event.touches[0];
+            }
+            if (!drag) {
+                return false;
+            }
+            event.clientX;
+            event.clientY;
+            box.style.left = `${event.clientX - cur.x + dx}px`;
+            box.style.top = `${event.clientY - cur.y + dy}px`;
+        });
+        box.addEventListener('touchend', function () {
+            console.log('touchend');
+            drag = false;
+            console.log('mouseup')
+
+        });
+    </script>
+</body>
+
+</html>

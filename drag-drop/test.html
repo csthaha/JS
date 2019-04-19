@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 10px;
+            border: 10px solid red;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .box2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box box1">
+        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1804111796,3478108100&fm=111&gp=0.jpg"
+            alt="">
+    </div>
+    <div class="box box2" draggable="true">
+        强哥很帅
+    </div>
+
+    <script>
+        const box1 = document.querySelector('.box1');
+        const box2 = document.querySelector('.box2');
+        
+        box1.addEventListener('dragstart', function () {
+            console.log('dragstart!'); //点击开始拖动触发
+        })
+        box1.addEventListener('dragenter', function () {
+            console.log('dragenter-');
+        })
+        box1.addEventListener('dragover', function () {
+            console.log('dragover+');  //拖动之后一直触发
+        })
+        box1.addEventListener('dragleave', function () {
+            console.log('dragleave~');  //离开的时候触发
+        })
+        box1.addEventListener('drop',function(){
+            console.log('drop\\')
+        })
+        // box1.addEventListener('drag',function(){
+        //     console.log('drag-----')
+        // })
+    </script>
+</body>
+
+</html>

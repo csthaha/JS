@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 10px solid green;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div draggable="true" class="box" id="box1">
+        <p>辣条</p>
+    </div>
+    <div class="box" id="box2" draggable="true">
+        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1804111796,3478108100&fm=111&gp=0.jpg"
+            alt="">
+    </div>
+    <!-- a标签，img标签默认可以拖 -->
+    <!-- <a href="">蜗牛："拖我"</a> -->
+    <script>
+        const box1 = document.getElementById('box1');
+        const box2 = document.getElementById('box2');
+        const boxs = document.querySelectorAll('.box');
+        let srcBox = null;
+        for (let i = 0, len = boxs.length; i < len; i++) {
+            let box = boxs[i];
+            box.addEventListener('dragstart', function (event) {
+                srcBox = this;
+                event.dataTransfer.setData('text/html', this.innerHTML)
+            })
+
+            box.addEventListener('dragover', function (event) {
+                event.preventDefault();
+            })
+            box.addEventListener('drop', function (event) {
+                const dataTrans = event.dataTransfer.getData('text/html');
+                srcBox.innerHTML = this.innerHTML;
+                this.innerHTML = dataTrans;
+            })
+
+        }
+        // 源对象
+        // box1.addEventListener('dragstart', function () {
+        //     // 按下去拖触发
+        // console.log('dragstart');
+        // })
+
+        // box1.addEventListener('drag', function () {
+        //     // 按下去动的时候触发
+        // })
+
+        // box1.addEventListener('dragend', function () {
+
+        // })
+        //目标对象
+        // box2.addEventListener('dragenter', function () {
+        //     console.log('dragenter');  //进去的时候触发
+        // })
+        // box2.addEventListener('dragover', function (event) {
+        //     event.preventDefault();
+        //     console.log('dragover');   //进去之后一直触发
+        // })
+        // box2.addEventListener('dragleave', function () {
+        //     console.log('dragleave');  ///离开时候触发
+        // })
+        // box2.addEventListener('drop', function () {
+        //     console.log('drop');    //放手的时候触发
+        // })
+    </script>
+</body>
+
+</html>
