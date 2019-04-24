@@ -22,7 +22,7 @@
         //异步,通往服务器的 每次请求需要消耗服务器资源 
         // 防抖（抖掉一些不必要的请求）
         function ajax(content) {
-            console.log('ajax request :' + content);
+            console.log('ajax request :' + content);  //keyup事件
         }
         let inputa = document.getElementById('unDebounce');
         let debounceA = document.getElementById('debounce');
@@ -34,7 +34,7 @@
             // 要ajax，但是抖一下
             // ajax(e.target.value);
             // 内部有着ajax的功能
-            debounceAjax(e.target.value);
+            debounceAjax(e.target.value);  //处理事件
         })
         let debounceAjax = debounce(ajax, 500);
         function debounce(func, delay) {
@@ -47,7 +47,7 @@
                 },delay);
 
             }
-        }
+        } //防抖函数
     </script>
 </body>
 
