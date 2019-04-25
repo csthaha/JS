@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>物理引擎</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
+    <script src="http://examples.phaser.io/_site/phaser/phaser.2.2.2.box2d.min.js"></script>
+    <div id="game"></div>
+    <script>
+        var game = new Phaser.Game(1800, 1600, Phaser.CANVAS, 'phaser-example', {
+            preload: preload,
+            create: create
+        });
+
+        function preload() {
+            game.load.image('block', './block.png');
+        }
+
+        function create() {
+            game.stage.backgroundColor = '#124184';
+            game.physics.startSystem(Phaser.Physics.BOX2D);//使用BOX2D引擎，并给游戏元素设置重力
+            game.physics.box2d.setBoundsToWorld();
+            // game.physics.box2d.gravity.y = 300;
+            for (var i = 0; i < 15; i++) {
+                // 精灵，走来走去
+                var blockSprite = game.add.sprite(150 + i * 125, 300 - i * 50, 'block');
+                game.physics.box2d.enable
+                    (blockSprite);
+                blockSprite.body.angle = 60;
+            }
+            game.input.onDown.add(mouseDragStart, this); //鼠标点击 点下 事件
+            game.input.addMoveCallback(mouseDragMove, this); //鼠标点击中 移动事件
+            game.input.onUp.add(mouseDragEnd, this); //鼠标松开事件
+            game.add.text(15, 15, 'Drag the objects  with the mouse.', { fill: '#ffffff', font: '14px Arial' });
+        }
+        function mouseDragStart() {
+            game.physics.box2d.mouseDragStart(game.input.mousePointer);
+        }
+        function mouseDragMove() {
+            game.physics.box2d.mouseDragMove(game.input.mousePointer);
+        }
+        function mouseDragEnd() {
+            game.physics.box2d.mouseDragEnd(game.input.mouseDragEnd);
+        }
+
+    </script>
+</body>
+
+</html>
