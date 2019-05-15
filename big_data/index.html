@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .news>div {
+            text-align: center;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="news"></div>
+    <script>
+        // 只要有length 属性得类数组，数组，变成数组
+        // 将类数组转化为真正的数组
+        //如果没有length属性，则是一个空数组
+        const originNews = Array.from({
+            length: 10000
+        }, (v,k) => ({ content: `新闻${k}` }));
+        //Array.form() 从哪里形成一个数组
+        console.log(originNews)
+        const container = document.querySelector('.news')
+        let ele = document.createElement('div');
+        for (let item of originNews) {
+            let otherEle = ele.cloneNode(true);
+            otherEle.innerHTML = item.content
+            container.appendChild(otherEle)
+        }
+        
+    </script>
+</body>
+
+</html>
