@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Modal(html, show) {
+            this.html = html;
+            this.show = show;
+
+        }
+        Modal.prototype.open = function () {
+            this.show = true;
+        }
+        Modal.prototype.close = function () {
+            this.show = false;
+        }
+        //只生成一个实例
+        //静态方法 ：不需要 new 即可调用 所以添加 getInstance 静态方法
+        Modal.getInstance = function (html, show) {
+            if (this.instance) {
+                return this.instance
+            } else {
+                this.instance = new Modal(html, show)
+                return this.instance
+            }
+
+        }
+        // 首页 有弹窗
+        const modal = new Modal()
+        // 详情页  也有弹窗
+        const modal2 = new Modal()
+        // 解决这种实例过多的问题 弹窗也应该是 唯一的。
+
+        //单例模式 就是为了解决这样的问题的
+        // 单例模式，只生成一个实例
+        //
+        const m1 = Modal.getInstance(`<span>hello</span>`, false)
+        const m2 = Modal.getInstance(`<span>world</span>`, false)
+        console.log(m1 instanceof Object)
+        console.log(m1 === m2)
+        console.log(m1)
+        console.log('m2',m2)
+        //幂等   ： 一个函数无论执行多少次，结果都是一样的
+
+        //当我们支付 一瓶水 2元的时候，我们点击付款的那一刻，后端已经把钱给扣除了，
+        // 但是返回前端的时候，页面出现错误，那么你就会再次付款，后端还会扣钱，单例模式就是
+        // 为了解决这种问题的
+
+        //简单,方便
+        //但是 破坏了 传统的生成实例方法 new() ,破坏开发者的习惯
+        //需要调用 getInstance()
+    </script>
+</body>
+
+</html>
